@@ -63,3 +63,16 @@ MODEL_TRAINER_MIN_SAMPLES_LEAF: int = 4
 MIN_SAMPLES_SPLIT_MAX_DEPTH: int = 4
 MIN_SAMPLES_SPLIT_CRITERION: str = 'gini'
 MIN_SAMPLES_SPLIT_RANDOM_STATE: int = 101
+
+
+"""
+MODEL Evaluation related constants
+"""
+MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE: float = 0.02
+#MODEL_BUCKET_NAME = "my-model-mlopsproj"
+MODEL_BUCKET_NAME = "RandomForestClassifier"
+MODEL_PUSHER_S3_KEY = "model-registry"
+
+
+APP_HOST = "0.0.0.0"
+APP_PORT = 5000
