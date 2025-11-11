@@ -1,0 +1,17 @@
+Steps to follow for the project:
+
+1) Create a new repository in GitHub. Add Readme file, Licence and .gitignore file to it. Clone the respository to the pc.
+2) Open the cloned folder in VS code thru powershell using command "code .".
+3) Create project template by executing template.py file. This file creates the file structure required for the project.
+4) Create setup.py file to access the local files as libraries to the project.
+5) Create requirements.txt file to add all the required standard libraries to the project.
+6) Run "uv init" to initialize the virtual environment.
+7) Run "uv add -r requirement.txt" to add the dependencies to the virtual environment.
+8) Run "uv pip instsll -e ." to add the local packages to the environment.
+9) Create folder "notebook" >> Dataset added to notebook folder >>  create file "mongoDB_demo.ipynb" 
+10) Push your data to mongoDB database from your python notebook.
+11) Go to mongoDB Atlas >> Database >> browse collection >> see your data in key value format
+12) Add logger and exception handling code block to the project.
+13) Work on the dataset in a jupyter notebook. Do Exploratory Data Analysis on the data and come up with conclusions. 
+14) We will be using Random Forest Classifier to do classification.
+15) 
