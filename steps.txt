@@ -28,3 +28,7 @@ Steps to follow for the project:
 	MONGODB_URL = "mongodb+srv://pradkris07:XsrQZnySfMvxe7sF@cluster0.f5f29yi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 	
 	This line will set the MongoDB url to point to our database. Also add load_dotenv() to demo.py to set the env. variable
+18) Complete the work on utils.main_utils.py and config.schema.yaml file (add entire info about dataset for data validation step)
+19) Now work on the "Data Validation" component the way we did in step 16 for Data Ingestion. (Workflow mentioned below)
+20) Now work on the "Data Transformation" component the way we did in above step. (add estimator.py to entity folder)
+21) Now work on the "Model Trainer" component the way we did in above step. (add class to estimator.py in entity folder)
