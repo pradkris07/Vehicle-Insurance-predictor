@@ -14,4 +14,17 @@ Steps to follow for the project:
 12) Add logger and exception handling code block to the project.
 13) Work on the dataset in a jupyter notebook. Do Exploratory Data Analysis on the data and come up with conclusions. 
 14) We will be using Random Forest Classifier to do classification.
-15) 
+15) Now we will use demo.py for testing the code. 
+16) Before we work on "Data Ingestion" component >> Declare variables within constants.__init__.py file >> 
+    add code to configuration.mongo_db_connections.py file and define the func for mondodb connection >> 
+    Inside "data_access" folder, add code to proj1_data that will use mongo_db_connections.py
+    to connect with DB, fetch data in key-val format and transform that to df >>
+    add code to entity.config_entity.py file till DataIngestionConfig class >>
+    add code to entity.artifact_entity.py file till DataIngestionArtifact class >>
+    add code to components.data_ingestion.py file >> add code to training pipeline >> 
+    run demo.py (set mongodb connection url first, see next step)
+17) Create a .env file and add the following line to it: 
+
+	MONGODB_URL = "mongodb+srv://pradkris07:XsrQZnySfMvxe7sF@cluster0.f5f29yi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+	
+	This line will set the MongoDB url to point to our database. Also add load_dotenv() to demo.py to set the env. variable
