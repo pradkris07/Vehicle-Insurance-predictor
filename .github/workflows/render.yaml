@@ -9,18 +9,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout repo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Step 3: Build Docker image (Render will rebuild internally, but this ensures build args work)
+      - name: Build Docker image with secrets
+        run: |
+          docker build \
+            --build-arg CRED_JSON_KEY=${{ secrets.CRED_JSON_KEY }} \
+            --build-arg TOKEN_JSON_KEY=${{ secrets.TOKEN_JSON_KEY }} \
+            -t insurance_predict .
       - name: Trigger Render Display
         env: 
           RENDER_API_KEY: ${{secrets.RENDER_API_KEY}}
         run: |
           curl -X POST https://api.render.com/deploy.srv-d29mieruibrs73c6m5a0?key=$RENDER_API_KEY
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: true
-          tags: my-google-app:latest
-          build-args: |
-            CRED_JSON_KEY=${{ secrets.CRED_JSON_KEY }}
-            TOKEN_JSON_KEY=${{ secrets.TOKEN_JSON_KEY }}
