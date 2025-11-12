@@ -4,7 +4,7 @@ services:
   - type: web
     name: python-docker-service
     env: docker
-    repo: https://github.com/pradkris07/VD-MLOPS-Vehicle-Insurance.git
+    repo: https://github.com/pradkris07/Vehicle-Insurance-predictor.git
     branch: main
     region: oregon
     plan: free

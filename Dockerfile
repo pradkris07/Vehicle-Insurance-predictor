@@ -1,10 +1,10 @@
-# Use an official Python 3.10 slim image
-FROM python:3.10-slim-buster
+# Use newer Debian base to avoid apt issues
+FROM python:3.10-slim-bookworm
 
-# Install curl (required to install uv)
-RUN apt-get update && apt-get install -y curl && apt-get clean
+# Install curl
+RUN apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install uv globally
+# Install uv
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Add uv to PATH
@@ -13,15 +13,14 @@ ENV PATH="/root/.local/bin:$PATH"
 # Set working directory
 WORKDIR /app
 
-# Copy the project files
+# Copy project files
 COPY . /app
 
-# Install dependencies using uv (reads pyproject.toml and uv.lock)
+# Install dependencies using uv
 RUN uv sync --frozen
 
 # Expose FastAPI port
 EXPOSE 5000
 
-# Command to run the FastAPI app
-# You can change "app.py" to your entrypoint (e.g., "main.py" or "src/app/main.py")
+# Run the FastAPI app
 CMD ["uv", "run", "python", "app.py"]
