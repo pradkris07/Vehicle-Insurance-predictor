@@ -14,3 +14,14 @@ jobs:
           RENDER_API_KEY: ${{secrets.RENDER_API_KEY}}
         run: |
           curl -X POST https://api.render.com/deploy.srv-d29mieruibrs73c6m5a0?key=$RENDER_API_KEY
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: user/appname:latest
+          build-args: |
+            CRED_JSON_KEY=${{ secrets.CRED_JSON_KEY }}
+            TOKEN_JSON_KEY=${{ secrets.TOKEN_JSON_KEY }}

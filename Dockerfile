@@ -26,6 +26,14 @@ COPY --from=build /app /app
 # Copy the actual source code
 COPY . /app
 
+# Define arguments to take the secret
+ARG CRED_JSON_KEY
+ARG TOKEN_JSON_KEY
+
+# Write  to a file
+RUN echo "$CRED_JSON_KEY" | base64 -di > /app/credentials.json
+RUN echo "$TOKEN_JSON_KEY" | base64 -di > /app/token.json
+
 # Expose FastAPI port
 EXPOSE 10000
 
