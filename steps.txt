@@ -33,6 +33,7 @@ Steps to follow for the project:
 20) Now work on the "Data Transformation" component the way we did in above step. (add estimator.py to entity folder)
 21) Now work on the "Model Trainer" component the way we did in above step. (add class to estimator.py in entity folder)
 22) Go to Google Cloud Console. Create a new Credentials of OAuth 2.0 Client IDs for Type "desktop". Dowload the JSON file and rename it credentials.json. Keep the 
-    file in the same project folder. 
-23) Now work on the "Model Pusher" component the way we did in above steps. 
+    file in the same project folder. This is to upload the model into the folder "RandomForstClassifier".
+23) Now we will start our work on "Model Evaluation" and "Model Pusher" component. MModel Evaluation verifies the F1 score of newly trained mmodel created
+    by this run with model in the google drive if it is present. If the new model has better f1 score, it overwrites the model in the G-Drive.
 24) 
