@@ -2,8 +2,8 @@ from dataclasses import dataclass
 
 @dataclass
 class DataIngestionArtifact:
-    trained_file_path:str 
-    test_file_path:str 
+    trained_file_path:str = fr"C:\BKP\Learning\MLOPS\Vehicle-Insurance-predictor\artifact\11_11_2025\data_ingestion\ingested\train.csv"
+    test_file_path:str = fr"C:\BKP\Learning\MLOPS\Vehicle-Insurance-predictor\artifact\11_11_2025\data_ingestion\ingested\test.csv"
        
 @dataclass
 class DataValidationArtifact:
@@ -20,7 +20,7 @@ class DataTransformationArtifact:
 @dataclass
 class ClassificationMetricArtifact:
     f1_score:float 
-    precision_score:float
+    precision_score:float 
     recall_score:float 
     
 @dataclass
@@ -34,3 +34,8 @@ class ModelEvaluationArtifact:
     changed_accuracy:float
     s3_model_path:str 
     trained_model_path:str
+
+@dataclass
+class ModelPusherArtifact:
+    bucket_name:str
+    s3_model_path:str

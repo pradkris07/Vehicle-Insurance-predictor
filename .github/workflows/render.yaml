@@ -1,0 +1,16 @@
+# name: Deploy Application Docker Image to Render instance
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  Continuous-Integration:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Render Display
+        env: 
+          RENDER_API_KEY: ${{secrets.RENDER_API_KEY}}
+        run: |
+          curl -X POST https://api.render.com/deploy.srv-d29mieruibrs73c6m5a0?key=$RENDER_API_KEY

@@ -74,5 +74,5 @@ MODEL_BUCKET_NAME = "RandomForestClassifier"
 MODEL_PUSHER_S3_KEY = "model-registry"
 
 
-APP_HOST = "0.0.0.0"
+APP_HOST = "localhost"
 APP_PORT = 5000

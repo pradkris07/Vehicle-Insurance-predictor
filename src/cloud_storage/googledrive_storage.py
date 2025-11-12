@@ -28,7 +28,7 @@ class DriveStorageService:
         self.creds = s3_client.creds
         self.service = build("drive", "v3", credentials=self.creds)
         self.file_id = 0
-        self.destination_path = fr"C:\BKP\Learning\MLOPS\VD-MLOPS-Vehicle-Insurance\temp.pkl"
+        self.destination_path = "./temp.pkl"
 
     def s3_key_path_available(self, bucket_name, s3_key) -> bool:
         """

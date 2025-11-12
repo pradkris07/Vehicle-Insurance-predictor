@@ -11,21 +11,21 @@ class Proj1Estimator:
     This class is used to save and retrieve our model from s3 bucket and to do prediction
     """
 
-    def __init__(self,bucket_name,model_name,):
+    def __init__(self,bucket_name,model_path,):
         """
         :param bucket_name: Name of your model bucket
         :param model_path: Location of your model in bucket
         """
         self.bucket_name = bucket_name
         self.s3 = DriveStorageService()
-        self.model_name = model_name
+        self.model_path = model_path
         self.loaded_model:MyModel=None
         #self.online_model_path = "./temp.pkl"
 
 
-    def is_model_present(self,model_name):
+    def is_model_present(self,model_path):
         try:
-            return self.s3.s3_key_path_available(bucket_name=self.bucket_name, s3_key=model_name)
+            return self.s3.s3_key_path_available(bucket_name=self.bucket_name, s3_key=self.model_path)
         except MyException as e:
             print(e)
             return False
