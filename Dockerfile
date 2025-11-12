@@ -23,4 +23,5 @@ RUN uv sync --frozen
 EXPOSE 5000
 
 # Run the FastAPI app
-CMD ["uv", "run", "python", "app.py"]
+#CMD ["uv", "run", "python", "app.py"]
+CMD ["uv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
