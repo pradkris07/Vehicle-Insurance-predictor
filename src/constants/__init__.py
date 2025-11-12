@@ -75,4 +75,4 @@ MODEL_PUSHER_S3_KEY = "model-registry"
 
 
 APP_HOST = "localhost"
-APP_PORT = 5000
+APP_PORT = 5080
