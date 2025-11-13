@@ -1,11 +1,11 @@
-from src.entity.config_entity import ModelEvaluationConfig
+from src.entity.config_entity import ModelEvaluationConfig, ModelPusherConfig
 from src.entity.artifact_entity import ModelTrainerArtifact, DataIngestionArtifact, ModelEvaluationArtifact
 from sklearn.metrics import f1_score
 from src.exception import MyException
 from src.constants import TARGET_COLUMN
 from src.logger import logging
 from src.utils.main_utils import load_object
-import sys
+import sys, os
 import pandas as pd
 from typing import Optional
 from src.entity.drive_estimator import Proj1Estimator
@@ -22,11 +22,13 @@ class EvaluateModelResponse:
 class ModelEvaluation:
 
     def __init__(self, model_eval_config: ModelEvaluationConfig, data_ingestion_artifact: DataIngestionArtifact,
-                 model_trainer_artifact: ModelTrainerArtifact):
+                 model_trainer_artifact: ModelTrainerArtifact, model_pusher_config: ModelPusherConfig):
         try:
             self.model_eval_config = model_eval_config
+            self.model_pusher_config = model_pusher_config
             self.data_ingestion_artifact = data_ingestion_artifact
             self.model_trainer_artifact = model_trainer_artifact
+            
         except Exception as e:
             raise MyException(e, sys) from e
 
@@ -41,12 +43,18 @@ class ModelEvaluation:
         try:
             bucket_name = self.model_eval_config.bucket_name
             model_path=self.model_eval_config.s3_model_key_path
-            proj1_estimator = Proj1Estimator(bucket_name=bucket_name,
-                                               model_path=model_path)
+            
+            try:
+                prod_model = load_object(file_path=self.model_pusher_config.model_final_dir)
+                logging.info(f"Prod model path: {self.model_pusher_config.model_final_dir}")
+                return prod_model 
+            #proj1_estimator = Proj1Estimator(bucket_name=bucket_name,
+            #                                   model_path=model_path)
 
-            if proj1_estimator.is_model_present(model_path=model_path):
-                return proj1_estimator
-            return None
+            #if proj1_estimator.is_model_present(model_path=model_path):
+            #    return proj1_estimator
+            except Exception as e:
+                return None
         except Exception as e:
             raise  MyException(e,sys)
         
@@ -100,7 +108,9 @@ class ModelEvaluation:
             x = self._drop_id_column(x)
             x = self._create_dummy_columns(x)
             x = self._rename_columns(x)
+            
 
+            logging.info(f"Trained model path: {self.model_trainer_artifact.trained_model_file_path}")
             trained_model = load_object(file_path=self.model_trainer_artifact.trained_model_file_path)
             logging.info("Trained model loaded/exists.")
             trained_model_f1_score = self.model_trainer_artifact.metric_artifact.f1_score

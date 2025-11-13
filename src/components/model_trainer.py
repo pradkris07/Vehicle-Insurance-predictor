@@ -1,4 +1,4 @@
-import sys
+import sys, os
 from typing import Tuple
 
 import numpy as np
@@ -8,19 +8,21 @@ from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_sc
 from src.exception import MyException
 from src.logger import logging
 from src.utils.main_utils import load_numpy_array_data, load_object, save_object
-from src.entity.config_entity import ModelTrainerConfig
+from src.entity.config_entity import ModelTrainerConfig, ModelPusherConfig
 from src.entity.artifact_entity import DataTransformationArtifact, ModelTrainerArtifact, ClassificationMetricArtifact
 from src.entity.estimator import MyModel
 
 class ModelTrainer:
     def __init__(self, data_transformation_artifact: DataTransformationArtifact,
-                 model_trainer_config: ModelTrainerConfig):
+                 model_trainer_config: ModelTrainerConfig,
+                 model_pusher_config: ModelPusherConfig):
         """
         :param data_transformation_artifact: Output reference of data transformation artifact stage
         :param model_trainer_config: Configuration for model training
         """
         self.data_transformation_artifact = data_transformation_artifact
         self.model_trainer_config = model_trainer_config
+        self.model_pusher_config = model_pusher_config
 
     def get_model_object_and_report(self, train: np.array, test: np.array) -> Tuple[object, object]:
         """
@@ -100,7 +102,12 @@ class ModelTrainer:
             logging.info("Saving new model as performace is better than previous one.")
             my_model = MyModel(preprocessing_object=preprocessing_obj, trained_model_object=trained_model)
             save_object(self.model_trainer_config.trained_model_file_path, my_model)
-            logging.info("Saved final model object that includes both preprocessing and the trained model")
+            # saving the model to a new path
+            if os.path.exists(self.model_pusher_config.model_final_dir) and os.path.isfile(self.model_pusher_config.model_final_dir):
+                logging.info("Prod file existing")
+            else:
+                save_object(self.model_pusher_config.model_final_dir, my_model)
+                logging.info("Saved final model object that includes both preprocessing and the trained model")
 
             # Create and return the ModelTrainerArtifact
             model_trainer_artifact = ModelTrainerArtifact(

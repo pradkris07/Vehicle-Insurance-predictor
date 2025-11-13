@@ -2,8 +2,8 @@ from dataclasses import dataclass
 
 @dataclass
 class DataIngestionArtifact:
-    trained_file_path:str = fr"C:\BKP\Learning\MLOPS\Vehicle-Insurance-predictor\artifact\11_11_2025\data_ingestion\ingested\train.csv"
-    test_file_path:str = fr"C:\BKP\Learning\MLOPS\Vehicle-Insurance-predictor\artifact\11_11_2025\data_ingestion\ingested\test.csv"
+    trained_file_path:str 
+    test_file_path:str 
        
 @dataclass
 class DataValidationArtifact:
@@ -39,3 +39,4 @@ class ModelEvaluationArtifact:
 class ModelPusherArtifact:
     bucket_name:str
     s3_model_path:str
+    model_final_dir: str 

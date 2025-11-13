@@ -89,7 +89,8 @@ class TrainPipeline:
         """
         try:
             model_trainer = ModelTrainer(data_transformation_artifact=data_transformation_artifact,
-                                         model_trainer_config=self.model_trainer_config
+                                         model_trainer_config=self.model_trainer_config,
+                                         model_pusher_config=self.model_pusher_config
                                          )
             model_trainer_artifact = model_trainer.initiate_model_trainer()
             return model_trainer_artifact
@@ -105,7 +106,8 @@ class TrainPipeline:
         try:
             model_evaluation = ModelEvaluation(model_eval_config=self.model_evaluation_config,
                                                data_ingestion_artifact=data_ingestion_artifact,
-                                               model_trainer_artifact=model_trainer_artifact)
+                                               model_trainer_artifact=model_trainer_artifact,
+                                               model_pusher_config=self.model_pusher_config)
             model_evaluation_artifact = model_evaluation.initiate_model_evaluation()
             return model_evaluation_artifact
         except Exception as e:

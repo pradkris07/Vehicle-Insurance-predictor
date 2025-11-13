@@ -1,10 +1,12 @@
 import sys
+import os
 from src.entity.config_entity import VehiclePredictorConfig
 from src.entity.drive_estimator import Proj1Estimator
 from src.exception import MyException
 from src.logger import logging
 from pandas import DataFrame
-
+from src.utils.main_utils import load_object
+import pickle
 
 class VehicleData:
     def __init__(self,
@@ -98,11 +100,12 @@ class VehicleDataClassifier:
         """
         try:
             logging.info("Entered predict method of VehicleDataClassifier class")
-            model = Proj1Estimator(
-                bucket_name=self.prediction_pipeline_config.model_bucket_name,
-                model_path=self.prediction_pipeline_config.model_file_path,
-            )
-            result =  model.predict(dataframe)
+            #file_path= self.prediction_pipeline_config.model_path
+            print(self.prediction_pipeline_config.model_path)
+            prod_model = load_object(file_path=self.prediction_pipeline_config.model_path)
+            print(prod_model)
+            
+            result =  prod_model.predict(dataframe)
             
             return result
         
