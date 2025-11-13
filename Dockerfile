@@ -31,7 +31,10 @@ ARG CRED_JSON_KEY
 ARG TOKEN_JSON_KEY
 
 # Write  to a file
-RUN echo "$CRED_JSON_KEY" | base64 -di > /app/credentials.json
+# RUN echo "$CRED_JSON_KEY" | base64 -di > /app/credentials.json
+RUN echo "$CRED_JSON_KEY" | base64 -d > /app/credentials.json && \
+    echo "Decoded file content:" && \
+    head -n 1 /app/credentials.json
 RUN echo "$TOKEN_JSON_KEY" | base64 -di > /app/token.json
 
 # Expose FastAPI port
