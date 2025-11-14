@@ -22,3 +22,4 @@ dotenv
 google-auth-httplib2
 typing
 starlette
+shutil

@@ -32,8 +32,22 @@ Steps to follow for the project:
 19) Now work on the "Data Validation" component the way we did in step 16 for Data Ingestion. (Workflow mentioned below)
 20) Now work on the "Data Transformation" component the way we did in above step. (add estimator.py to entity folder)
 21) Now work on the "Model Trainer" component the way we did in above step. (add class to estimator.py in entity folder)
-22) Go to Google Cloud Console. Create a new Credentials of OAuth 2.0 Client IDs for Type "desktop". Dowload the JSON file and rename it credentials.json. Keep the 
-    file in the same project folder. This is to upload the model into the folder "RandomForstClassifier".
-23) Now we will start our work on "Model Evaluation" and "Model Pusher" component. MModel Evaluation verifies the F1 score of newly trained mmodel created
-    by this run with model in the google drive if it is present. If the new model has better f1 score, it overwrites the model in the G-Drive.
-24) 
+22) This component will train using the train.csv file and the model is uploaded into the folder "RandomForstClassifier".
+23) Now we will start our work on "Model Evaluation" and "Model Pusher" component. Mdel Evaluation verifies the F1 score of newly trained mmodel created
+    by this run with model in the google drive if it is present. If the new model has better f1 score, it overwrites the model in the folder 
+	"RandomForstClassifier".
+24) Create the code structure of "Prediction Pipeline" and setup your app.py
+25) Add "static" and "template" dir to the project. 
+
+26) Getting started with CI-CD process:
+      * Setup the dockerfile and .dockerignore file
+      * Setup the .github\workflows dir and render.yaml file within. Also add render-run.yaml file for connecting to the render server.
+	  * In the github actions, create a secret key to access render service.
+27) Create a dockerfile to containerize the object. 
+28) Add the updated code to github and push it so that CICD pipeline runs and the docker container is pushed to the render server. The deployment should
+    start automatically in render.
+29) Login to render server and go to workbench where all the active deployment will be visible. Click on the Vehicle Insurance Predictor deplpyment. Once the 
+    details appear, the URL will be available. 
+	https://vd-mlops-vehicle-insurance.onrender.com
+30) You can enter any value in the form to check the prediction.
+31) You will also have a training link if we need to update the model with new data.
